@@ -188,7 +188,10 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
             _shapeLayer.position = CGPointMake(0, kMaxDistance + offset + kOpenedViewHeight);
             [CATransaction commit];
 
-            _activity.center = CGPointMake(floor(self.frame.size.width / 2), MIN(offset + self.frame.size.height + floor(kOpenedViewHeight / 2), self.frame.size.height - kOpenedViewHeight/ 2));
+            if (self.alignedToBottom)
+                _activity.center = CGPointMake(floor(self.frame.size.width / 2), MIN(offset + self.frame.size.height + floor(kOpenedViewHeight / 2), self.frame.size.height - kOpenedViewHeight/ 2) + self.originalContentInset.top);
+            else
+                _activity.center = CGPointMake(floor(self.frame.size.width / 2), MIN(offset + self.frame.size.height + floor(kOpenedViewHeight / 2), self.frame.size.height - kOpenedViewHeight/ 2));
 
             _ignoreInset = YES;
             _ignoreOffset = YES;
@@ -283,6 +286,11 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
             bottomOrigin.y -= (fabs(verticalShift) - kMaxDistance);
             triggered = YES;
         }
+    }
+    
+    if (self.alignedToBottom) {
+        topOrigin.y += self.originalContentInset.top;
+        bottomOrigin.y += self.originalContentInset.top;
     }
     
     //Top semicircle
