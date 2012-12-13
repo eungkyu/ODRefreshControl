@@ -20,6 +20,7 @@
     BOOL _canRefresh;
     BOOL _ignoreInset;
     BOOL _ignoreOffset;
+    CGFloat _offsetDiff;
     BOOL _didSetInset;
     BOOL _hasSectionHeaders;
     CGFloat _lastOffset;
